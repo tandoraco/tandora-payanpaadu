@@ -27,9 +27,11 @@ class Command(BaseCommand):
     def _update_current_url(self, url):
         with open('current_payanpaadu_azure_url.txt', 'w') as f:
             f.write(url)
+        print(url)
 
     def handle(self, *args, **options):
         try:
+            print('starting upload ..')
             blob_client = BlockBlobService(account_name=settings.AZURE_STORAGE_ACCOUNT_NAME,
                                            account_key=settings.AZURE_STORAGE_ACCOUNT_KEY)
 
@@ -41,4 +43,5 @@ class Command(BaseCommand):
         finally:
             blob_client.create_blob_from_path(
                 container_name, self.local_file_name, self.full_path_to_file.__str__())
+            print('successfully uploaded ..')
             self._update_current_url(BLOB_PATH.replace('file_name', self.local_file_name))

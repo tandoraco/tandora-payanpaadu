@@ -2,11 +2,14 @@ from setuptools import setup, find_packages
 
 version = None
 
-with open('version.txt') as version_file:
-    version = version_file.read().strip()
+try:
+    with open('version.txt') as version_file:
+        version = version_file.read().strip()
+except Exception:
+        version = '1.0.1'
 
 setup(
     name="tandora-payanpaadu",
     version=version,
-    packages=find_packages(exclude=["tandorautils", "*.txt", ])
+    packages=find_packages(exclude=["tandorautils", ])
 )

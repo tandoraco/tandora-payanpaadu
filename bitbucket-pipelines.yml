@@ -1,0 +1,16 @@
+image: python:3.8
+
+pipelines:
+  default:
+  - step:
+     name: Deploy to test
+     deployment: test
+     script:
+       - echo "Deploying to test environment"
+  - step:
+     name: Upload Payanpaadu to Azure
+     trigger: manual
+     script:
+       - pip install -r requirements.txt
+       - python setup.py sdist
+       - python manage.py upload_payanpaadu
