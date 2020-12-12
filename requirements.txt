@@ -3,3 +3,4 @@ requests==2.25.0
 python-dotenv==0.15.0
 django-storages[azure]
 azure-storage-blob==2.1.0
+Pillow==8.0.1
