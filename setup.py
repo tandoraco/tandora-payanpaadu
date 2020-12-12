@@ -11,5 +11,5 @@ except Exception:
 setup(
     name="tandora-payanpaadu",
     version=version,
-    packages=find_packages(exclude=["tandorautils", ])
+    packages=find_packages(exclude=["tandorautils", 'karuvi', ])
 )

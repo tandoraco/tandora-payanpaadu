@@ -14,7 +14,7 @@ class Tags(DjangoTags):
 def check_and_create_azure_container(app_config=None, **kwargs):
     container_name = os.environ.get('MEDIA_LOCATION')
 
-    if not hasattr(settings, 'DEFAULT_FILE_STORAGE') or 'AzureMediaStorage' not in settings.DEFAULT_FILE_STORAGE:
+    if hasattr(settings, 'DEFAULT_FILE_STORAGE') and 'AzureMediaStorage' not in settings.DEFAULT_FILE_STORAGE:
         print('AzureMediaStorage is not configured in settings ..')
         print('Skipping container check ..')
 
