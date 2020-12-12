@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'payanpaadu',
+    'karuvi',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,7 @@ EMAIL_BACKEND = 'payanpaadu.email.backends.MailGunBackend'
 DEFAULT_FROM_EMAIL = 'dev-test-no-reply@mg.tandora.co'
 TANDORA_APP_NAME = 'Tandora Payanpaadu'
 MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
+
+AZURE_STORAGE_ACCOUNT_NAME = os.environ.get('AZURE_STORAGE_ACCOUNT_NAME')
+AZURE_STORAGE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY')
+AZURE_STORAGE_ACCOUNT_CONNECTION_STRING = os.environ.get('AZURE_STORAGE_CONNECTION_STRING')
