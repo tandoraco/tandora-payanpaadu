@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'background_task',
     'payanpaadu',
     'karuvi',
 ]
@@ -138,3 +139,4 @@ DEFAULT_FILE_STORAGE = 'payanpaadu.storages.azure.AzureMediaStorage'
 MEDIA_LOCATION = "media"
 AZURE_ACCOUNT_NAME = os.environ.get('AZURE_STORAGE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY')
+BACKGROUND_JOB_AUTH_KEY = os.environ.get('BACKGROUND_JOB_AUTH_KEY')
