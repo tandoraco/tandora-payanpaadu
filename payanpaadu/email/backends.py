@@ -19,20 +19,27 @@ class MailGunBackend(BaseEmailBackend):
             self.connection = requests.Session()
             self.connection.auth = self.auth
 
-    def send_messages(self, email_messages):
+    def send_messages(self, email_messages, files=None):
         self.open()
 
         for message in email_messages:
             data = {
                 "from": f"{settings.TANDORA_APP_NAME} <{message.from_email}>",
-                "to": [message.to] if not isinstance(message, list) else message.to,
+                "to": [message.to] if not isinstance(message.to, list) else message.to,
                 "subject": message.subject,
                 "text": message.body,
             }
-            response = self.connection.post(
-                MAIL_GUN_API_ENDPOINT,
-                data=data,
-            )
+            if not files:
+                response = self.connection.post(
+                    MAIL_GUN_API_ENDPOINT,
+                    data=data,
+                )
+            else:
+                response = self.connection.post(
+                    MAIL_GUN_API_ENDPOINT,
+                    data=data,
+                    files=files,
+                )
 
             if settings.DEBUG:
                 print(response.ok)
