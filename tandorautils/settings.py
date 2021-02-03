@@ -14,6 +14,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from payanpaadu.logger.aws import AWS_LOGGING_CONFIG
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -140,3 +142,5 @@ MEDIA_LOCATION = "media"
 AZURE_ACCOUNT_NAME = os.environ.get('AZURE_STORAGE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY')
 BACKGROUND_JOB_AUTH_KEY = os.environ.get('BACKGROUND_JOB_AUTH_KEY')
+
+LOGGING = AWS_LOGGING_CONFIG
