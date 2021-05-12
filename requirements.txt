@@ -7,3 +7,5 @@ Pillow==8.0.1
 django-background-tasks==1.2.5
 watchtower==1.0.6
 python-json-logger==2.0.1
+boto3==1.17.71
+boto==2.49.0

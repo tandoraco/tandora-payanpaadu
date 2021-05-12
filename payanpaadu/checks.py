@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.checks import Tags as DjangoTags, register
 
 
-class Tags(DjangoTags):
+'''class Tags(DjangoTags):
     check_and_create_azure_container = 'check_and_create_azure_container'
 
 
@@ -29,3 +29,4 @@ def check_and_create_azure_container(app_config=None, **kwargs):
         blob_client.create_container(container_name, public_access='blob')
 
     return []
+'''
