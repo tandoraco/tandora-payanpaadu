@@ -1,6 +1,6 @@
 from background_task.tasks import autodiscover, tasks
 from django.conf import settings
-from django.http import HttpResponseForbidden, JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
@@ -10,7 +10,7 @@ from django.views.decorators.http import require_POST
 def execute_background_task(request):
     key = request.META.get('HTTP_KEY')
     if not key == settings.BACKGROUND_JOB_AUTH_KEY:
-        raise HttpResponseForbidden
+        return HttpResponse('Api key is invalid', status=403)
 
     autodiscover()
     queue = None
