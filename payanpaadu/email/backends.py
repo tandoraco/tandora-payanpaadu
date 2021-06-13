@@ -29,6 +29,9 @@ class MailGunBackend(BaseEmailBackend):
                 "subject": message.subject,
                 "text": message.body,
             }
+            if message.mixed_subtype == 'mixed':
+                data['html'] = message.body
+
             if not files:
                 response = self.connection.post(
                     MAIL_GUN_API_ENDPOINT,
