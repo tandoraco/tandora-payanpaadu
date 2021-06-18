@@ -9,3 +9,5 @@ watchtower==1.0.6
 python-json-logger==2.0.1
 boto3==1.17.71
 boto==2.49.0
+pytest==6.2.4
+djangorestframework==3.12.4
