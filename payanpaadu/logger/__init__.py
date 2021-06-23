@@ -2,4 +2,7 @@ import logging
 
 
 def get_logger(name='application'):
-    return logging.getLogger(name)
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    return logger
+

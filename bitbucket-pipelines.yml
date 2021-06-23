@@ -8,7 +8,7 @@ pipelines:
      script:
        - echo "Deploying to test environment"
   - step:
-     name: Upload Payanpaadu to Azure
+     name: Upload to AWS
      trigger: manual
      script:
        - pip install -r requirements.txt
