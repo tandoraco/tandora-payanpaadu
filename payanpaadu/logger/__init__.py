@@ -1,8 +1,7 @@
-import logging
+from payanpaadu.logger.aws import get_aws_logger
 
 
 def get_logger(name='application'):
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
-    return logger
+    return get_aws_logger(name)
+
 

@@ -10,11 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from pathlib import Path
-
 from dotenv import load_dotenv
-
-from payanpaadu.logger.aws import AWS_LOGGING_CONFIG
+from pathlib import Path
 
 load_dotenv()
 
@@ -142,8 +139,6 @@ MEDIA_LOCATION = "media"
 AZURE_ACCOUNT_NAME = os.environ.get('AZURE_STORAGE_ACCOUNT_NAME')
 AZURE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY')
 BACKGROUND_JOB_AUTH_KEY = os.environ.get('BACKGROUND_JOB_AUTH_KEY')
-
-LOGGING = AWS_LOGGING_CONFIG
 
 DEFAULT_PLAN_FEATURES = dict()
 
