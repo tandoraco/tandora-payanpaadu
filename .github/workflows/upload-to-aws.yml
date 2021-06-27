@@ -24,6 +24,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Upload
         run: |
-          - pip install -r requirements.txt
-          - python setup.py sdist
-          - python manage.py upload_payanpaadu
+          pip install -r requirements.txt
+          python setup.py sdist
+          python manage.py upload_payanpaadu
