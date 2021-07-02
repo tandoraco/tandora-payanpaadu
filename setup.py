@@ -6,7 +6,7 @@ try:
     with open('version.txt') as version_file:
         version = version_file.read().strip()
 except Exception:
-        version = '2.0.2'
+        version = '2.0.3'
 
 setup(
     name="tandora-payanpaadu",

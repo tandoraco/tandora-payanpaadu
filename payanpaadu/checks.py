@@ -1,11 +1,3 @@
-import os
-
-from azure.common import AzureMissingResourceHttpError
-from azure.storage.blob import BlockBlobService
-from django.conf import settings
-from django.core.checks import Tags as DjangoTags, register
-
-
 '''class Tags(DjangoTags):
     check_and_create_azure_container = 'check_and_create_azure_container'
 
