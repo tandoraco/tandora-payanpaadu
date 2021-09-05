@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-EMAIL_BACKEND = 'payanpaadu.email.backends.MailGunBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'dev-test-no-reply@mg.tandora.co'
 TANDORA_APP_NAME = 'Tandora Payanpaadu'
 MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
@@ -144,3 +144,8 @@ DEFAULT_PLAN_FEATURES = dict()
 
 S3_AWS_ACCESS_KEY_ID = os.environ.get('S3_AWS_ACCESS_KEY_ID')
 S3_AWS_SECRET_ACCESS_KEY = os.environ.get('S3_AWS_SECRET_ACCESS_KEY')
+
+SIGNUP_MODEL = 'karuvi.SignupTest'
+SIGNUP_SUCCESS_PATH = '/login'
+VERIFY_SUCCESS_PATH = '/login'
+HOST = 'http://localhost:8000'
