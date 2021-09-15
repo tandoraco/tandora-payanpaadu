@@ -26,3 +26,10 @@ class SignupTest(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class Company(models.Model):
+    name = models.CharField(unique=True, max_length=100)
+
+    def __str__(self):
+        return self.name
