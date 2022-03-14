@@ -100,8 +100,3 @@ def set_database_to_settings(company_name, database_host, database_name, databas
         'PASSWORD': database_password,
         'PORT': 5432,
     }
-    settings.HAYSTACK_CONNECTIONS[database_name] = {
-        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
-        'URL': settings.ELASTIC_SEARCH_URL,
-        'INDEX_NAME': database_name
-    }

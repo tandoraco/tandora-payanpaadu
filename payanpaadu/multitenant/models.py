@@ -29,12 +29,3 @@ class Instance(models.Model):
             'PASSWORD': self.db_password,
             'PORT': 5432,
         }
-
-    @property
-    def elastic_search_config(self):
-        from django.conf import settings
-        return {
-            'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
-            'URL': settings.ELASTIC_SEARCH_URL,
-            'INDEX_NAME': self.db_name
-        }
