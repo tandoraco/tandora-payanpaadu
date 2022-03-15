@@ -8,6 +8,8 @@ from payanpaadu.multitenant.thread import set_current_database, get_current_data
 
 def check_and_set_database_to_settings(database):
     from django.conf import settings
+    if database == 'default':
+        return
     instance = Instance.objects.using('default').get(db_name=database)
     if database not in settings.DATABASES:
         settings.DATABASES[database] = instance.database_config
