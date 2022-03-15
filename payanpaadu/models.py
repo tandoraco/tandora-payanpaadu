@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models.signals import post_save
 
 from payanpaadu.signup.signals import send_pending_signup_mail
+from payanpaadu.multitenant.models import Instance
 
 
 def get_hash():
