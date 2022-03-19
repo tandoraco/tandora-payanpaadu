@@ -16,6 +16,9 @@ class Command(BaseCommand):
 
         call_command('migrate', f'--database={database}')
 
+    def add_arguments(self, parser):
+        parser.add_argument('-d', '--database', type=str, help='Database to use for current migration')
+
     def handle(self, *args, **options):
         if not hasattr(settings, 'MULTI_TENANT_MODE'):
             raise RuntimeError('Can only be run on projects with multitenancy.')
