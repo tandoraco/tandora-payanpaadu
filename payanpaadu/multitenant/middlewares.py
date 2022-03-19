@@ -41,6 +41,8 @@ class MultiTenantMiddleware(MiddlewareMixin):
                     # subdomain name and database name will be same
                     check_and_set_database_to_settings(subdomain)
                     set_current_database(subdomain)
+                else:
+                    set_current_database(settings.INSTANCE_DATABASE_NAME)
             else:
                 database = get_current_database()
                 check_and_set_database_to_settings(database)
