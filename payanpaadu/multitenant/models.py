@@ -1,5 +1,10 @@
 # Create your models here.
+from django.conf import settings
 from django.db import models
+from django.db.models.signals import post_save
+
+from payanpaadu.logger import get_logger
+from payanpaadu.multitenant.utils import CreateDatabase
 
 
 class Instance(models.Model):
@@ -29,3 +34,24 @@ class Instance(models.Model):
             'PASSWORD': self.db_password,
             'PORT': 5432,
         }
+
+
+def create_db(sender, instance, created, **kwargs):
+    if created and settings.MULTI_TENANT_MODE:
+        db_creation = CreateDatabase(instance.db_name, instance.db_user, instance.db_password)
+        try:
+            db_creation.execute()
+        except Exception as e:
+            logger = get_logger()
+            logger.info('[create_db] Exception while creating db', extra={
+                'db_name': instance.db_name,
+                'exception': str(e)
+            })
+            db_creation.revert()
+            instance.delete()
+            raise
+    else:
+        raise RuntimeError('Only allowed in multitenant mode')
+
+
+post_save.connect(create_db, sender=Instance)
