@@ -20,11 +20,14 @@ class Command(BaseCommand):
         if not hasattr(settings, 'MULTI_TENANT_MODE'):
             raise RuntimeError('Can only be run on projects with multitenancy.')
 
-        if settings.MULTI_TENANT_MODE:
+        database = options.get('database')
+        if not database:
+            self.logger.info('No database specified. Running migration on all available databases.')
+
+        if not database:
             instances = Instance.objects.all()
             for instance in instances:
                 self._run_migration(instance.db_name, instance)
         else:
-            database = settings.INSTANCE_DATABASE_NAME
             instance = Instance.objects.get(db_name=database)
             self._run_migration(database, instance)
