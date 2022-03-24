@@ -29,7 +29,13 @@ class MultiTenantMiddleware(MiddlewareMixin):
         self.logger.info("[multi_tenant_middleware] received request", extra=extra)
         try:
             if settings.MULTI_TENANT_MODE:
-                if host not in settings.MAIN_APP_HOSTS:
+                if request.META.get('HTTP_CUSTOM_DOMAIN_SET'):
+                    # process custom domains first
+                    subdomain = request.META['HTTP_CUSTOM_DOMAIN_FORWARDED_TO_SUBDOMAIN']
+                    check_and_set_database_to_settings(subdomain)
+                    set_current_database(subdomain)
+                elif host not in settings.MAIN_APP_HOSTS:
+                    # if custom domain is not found, process sub domains
                     self.logger.info("[multi_tenant_middleware] multitenant mode and host not in main app hosts",
                                      extra=extra)
                     if not host:
@@ -41,11 +47,8 @@ class MultiTenantMiddleware(MiddlewareMixin):
                     # subdomain name and database name will be same
                     check_and_set_database_to_settings(subdomain)
                     set_current_database(subdomain)
-                elif request.META.get('HTTP_CUSTOM_DOMAIN_SET'):
-                    subdomain = request.META['HTTP_CUSTOM_DOMAIN_FORWARDED_TO_SUBDOMAIN']
-                    check_and_set_database_to_settings(subdomain)
-                    set_current_database(subdomain)
                 else:
+                    # finally process the mod website
                     set_current_database(settings.INSTANCE_DATABASE_NAME)
             else:
                 database = get_current_database()
