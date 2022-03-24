@@ -1,7 +1,9 @@
 import psycopg2
 from django.conf import settings
 
+from payanpaadu.custom_domains.models import CustomDomain
 from payanpaadu.logger import get_logger
+from payanpaadu.multitenant.models import Instance
 
 CREATE_DB_USER = 'create_database_user'
 ALTER_USER_PERMISSIONS = 'alter_user_permissions'
@@ -100,3 +102,43 @@ def set_database_to_settings(company_name, database_host, database_name, databas
         'PASSWORD': database_password,
         'PORT': 5432,
     }
+
+
+class AllowedHosts:
+    # Ref:https://gist.github.com/kezabelle/9481971
+    sites = []
+
+    def __init__(self, defaults):
+        self.defaults = defaults
+
+    def get_custom_domains(self):
+        return list(CustomDomain.objects.all().values_list('custom_domain', flat=True))
+
+    def get_subdomains(self):
+        return list(Instance.objects.all().values_list('subdomain', flat=True))
+
+    def get_hosts(self):
+        self.sites = self.get_custom_domains() + self.get_subdomains()
+        return self.sites + self.defaults
+
+    def __iter__(self):
+        return iter(self.get_hosts())
+
+    def __str__(self):
+        return ', '.join(self.get_hosts())
+
+    def __contains__(self, item):
+        return item in self.get_hosts()
+
+    def __len__(self):
+        return len(self.get_hosts())
+
+    def __add__(self, other):
+        return self.__class__(defaults=self.defaults + other.defaults)
+
+
+class TrustedOrigins(AllowedHosts):
+
+    def get_hosts(self):
+        self.sites = map(lambda site: f'https://{site}', self.get_custom_domains() + self.get_subdomains())
+        return self.sites + self.defaults
