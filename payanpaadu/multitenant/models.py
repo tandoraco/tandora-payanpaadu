@@ -1,5 +1,6 @@
 # Create your models here.
 from django.conf import settings
+from django.core.management import call_command
 from django.db import models
 from django.db.models.signals import post_save
 
@@ -41,6 +42,7 @@ def create_db(sender, instance, created, **kwargs):
         db_creation = CreateDatabase(instance.db_name, instance.db_user, instance.db_password)
         try:
             db_creation.execute()
+            call_command('custom_migrate', f'--database={instance.db_name}')
         except Exception as e:
             logger = get_logger()
             logger.info('[create_db] Exception while creating db', extra={
