@@ -140,5 +140,5 @@ class AllowedHosts:
 class TrustedOrigins(AllowedHosts):
 
     def get_hosts(self):
-        self.sites = map(lambda site: f'https://{site}', self.get_custom_domains() + self.get_subdomains())
+        self.sites = list(map(lambda site: f'https://{site}', self.get_custom_domains() + self.get_subdomains()))
         return self.sites + self.defaults
