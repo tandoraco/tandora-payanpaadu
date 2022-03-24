@@ -13,6 +13,9 @@ def get_available_sites(request):
         return HttpResponse('Api key is invalid', status=403)
 
     subdomains = list(Instance.objects.all().values_list('subdomain', flat=True))
-    subdomains = list(map(lambda s: settings.MULTI_TENANT_HOST.replace('{subdomain}', s), subdomains))
+    subdomains = list(
+        map(lambda s: settings.MULTI_TENANT_HOST.replace('{subdomain}', s).replace('http://', '').replace('https://',
+                                                                                                          ''),
+            subdomains))
     custom_domains = list(CustomDomain.objects.all().values_list('custom_domain', flat=True))
     return HttpResponse(','.join(subdomains + custom_domains))
