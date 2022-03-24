@@ -1,9 +1,7 @@
 import psycopg2
 from django.conf import settings
 
-from payanpaadu.custom_domains.models import CustomDomain
 from payanpaadu.logger import get_logger
-from payanpaadu.multitenant.models import Instance
 
 CREATE_DB_USER = 'create_database_user'
 ALTER_USER_PERMISSIONS = 'alter_user_permissions'
@@ -112,9 +110,11 @@ class AllowedHosts:
         self.defaults = defaults
 
     def get_custom_domains(self):
+        from payanpaadu.custom_domains.models import CustomDomain
         return list(CustomDomain.objects.all().values_list('custom_domain', flat=True))
 
     def get_subdomains(self):
+        from payanpaadu.multitenant.models import Instance
         return list(Instance.objects.all().values_list('subdomain', flat=True))
 
     def get_hosts(self):
