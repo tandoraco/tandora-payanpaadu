@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 
 from payanpaadu.signup.signals import send_pending_signup_mail
 from payanpaadu.multitenant.models import Instance
+from payanpaadu.custom_domains.models import CustomDomain
 
 
 def get_hash():
